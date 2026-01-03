@@ -1,0 +1,59 @@
+{
+	"compiler": {
+		"version": "0.8.31+commit.fd3a2265"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "buyTokens",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/SponsorFunding.sol": "ICrowdFundingToken"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/SponsorFunding.sol": {
+			"keccak256": "0xf1e8a898b3320399b3e8f84625917cb9c489d316678395e7ead86a5bb4584646",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fc2d7938ee45a5bb42153c74001f7c72ed18300ae9d7cda2368f80ab51ba190f",
+				"dweb:/ipfs/QmY8vQmXqSrxPsQrv4jQUYftoSmtpAttL5ptqvisLo9ovo"
+			]
+		}
+	},
+	"version": 1
+}
