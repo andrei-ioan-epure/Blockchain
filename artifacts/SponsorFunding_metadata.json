@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.31+commit.fd3a2265"
 	},
 	"language": "Solidity",
 	"output": {
@@ -20,6 +20,32 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "crowdFunding",
+						"type": "address"
+					}
+				],
+				"name": "CrowdFundingAuthorized",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "crowdFunding",
+						"type": "address"
+					}
+				],
+				"name": "CrowdFundingDeauthorized",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -117,6 +143,38 @@
 				"type": "event"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_crowdFunding",
+						"type": "address"
+					}
+				],
+				"name": "authorizeCrowdFunding",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "authorizedCrowdFundings",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "buyTokensForSponsorship",
 				"outputs": [
@@ -127,6 +185,19 @@
 					}
 				],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_crowdFunding",
+						"type": "address"
+					}
+				],
+				"name": "deauthorizeCrowdFunding",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -234,7 +305,7 @@
 		"compilationTarget": {
 			"contracts/SponsorFunding.sol": "SponsorFunding"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "osaka",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -247,11 +318,11 @@
 	},
 	"sources": {
 		"contracts/SponsorFunding.sol": {
-			"keccak256": "0xf1e8a898b3320399b3e8f84625917cb9c489d316678395e7ead86a5bb4584646",
+			"keccak256": "0xf63d361f455d56dc9ed11a9fdd15899461efd71aa32d90ba8904e0cb685b8e98",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fc2d7938ee45a5bb42153c74001f7c72ed18300ae9d7cda2368f80ab51ba190f",
-				"dweb:/ipfs/QmY8vQmXqSrxPsQrv4jQUYftoSmtpAttL5ptqvisLo9ovo"
+				"bzz-raw://9bd28808754d7c4d6e1f4497322e3bfc81ae63bdec15c7d05fa27833005b8901",
+				"dweb:/ipfs/QmTJ9CMxBSA2JW6cjm9QQeKjE7Vre84Lw2DRdiLu7sVTKa"
 			]
 		}
 	},

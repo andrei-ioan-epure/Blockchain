@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.31+commit.fd3a2265"
 	},
 	"language": "Solidity",
 	"output": {
@@ -20,10 +20,29 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "crowdFunding",
+						"type": "address"
+					}
+				],
+				"name": "CrowdFundingSet",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
 					}
 				],
 				"name": "FundsReceived",
@@ -94,6 +113,19 @@
 						"internalType": "address",
 						"name": "shareholder",
 						"type": "address"
+					}
+				],
+				"name": "ShareholderRemoved",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "shareholder",
+						"type": "address"
 					},
 					{
 						"indexed": false,
@@ -127,6 +159,19 @@
 				"name": "addShareholder",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "crowdFundingAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -165,6 +210,35 @@
 					{
 						"internalType": "bool",
 						"name": "exists",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "getShareholderAtIndex",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "percentage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "hasWithdrawn",
 						"type": "bool"
 					}
 				],
@@ -213,6 +287,19 @@
 			{
 				"inputs": [],
 				"name": "receiveTokens",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_crowdFundingAddress",
+						"type": "address"
+					}
+				],
+				"name": "setCrowdFundingAddress",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -339,7 +426,7 @@
 		"compilationTarget": {
 			"contracts/DistributeFunding.sol": "DistributeFunding"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "osaka",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -352,11 +439,11 @@
 	},
 	"sources": {
 		"contracts/DistributeFunding.sol": {
-			"keccak256": "0x53347ae7c13eb354a09aa6fbebe67fca5b90a1d8643ba2eddd38103e98601f5f",
+			"keccak256": "0xd310e5d9efb7e301f8124fc4513d7f839e43c38a52cc1e79e0d2c96516941bf6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2b90384c4a79a3c8a7ab6d0387ff944d8802a413eabfc432525f377c82fde427",
-				"dweb:/ipfs/QmW1F5GZ9WEsG2t2znymBiEhpe5a6AufGF2oz3Rvj2appw"
+				"bzz-raw://019b115e0f0bb5e0aac87ed5faeba9649d920b39da384ee546184e67c67cd73d",
+				"dweb:/ipfs/QmQVAj4jq6LgcCU1mzmKCRrxDYDM4mCtwNJ32X1KawZB8S"
 			]
 		}
 	},

@@ -16,6 +16,7 @@ contract DistributeFunding {
     
     address public owner;
     address public tokenAddress;
+    address public crowdFundingAddress;
     uint256 public totalReceived;
     bool public fundsReceived;
     
@@ -25,9 +26,11 @@ contract DistributeFunding {
     
     event ShareholderAdded(address indexed shareholder, uint256 percentage);
     event ShareholderUpdated(address indexed shareholder, uint256 oldPercentage, uint256 newPercentage);
-    event FundsReceived(uint256 amount);
+    event ShareholderRemoved(address indexed shareholder);
+    event FundsReceived(uint256 amount, address indexed from);
     event ShareWithdrawn(address indexed shareholder, uint256 amount);
     event RemainingWithdrawn(address indexed owner, uint256 amount);
+    event CrowdFundingSet(address indexed crowdFunding);
     
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner");
@@ -48,10 +51,15 @@ contract DistributeFunding {
         totalAllocatedPercentage = 0;
     }
     
+    function setCrowdFundingAddress(address _crowdFundingAddress) public onlyOwner beforeFundsReceived {
+        require(_crowdFundingAddress != address(0), "Invalid address");
+        crowdFundingAddress = _crowdFundingAddress;
+        emit CrowdFundingSet(_crowdFundingAddress);
+    }
+    
     function addShareholder(address _shareholder, uint256 _percentage) public onlyOwner beforeFundsReceived {
         require(_shareholder != address(0), "Invalid address");
         require(_percentage > 0, "Invalid percentage");
-        require(totalAllocatedPercentage + _percentage <= 100, "Exceeds 100%");
         
         bool exists = false;
         uint256 index = 0;
@@ -66,10 +74,12 @@ contract DistributeFunding {
         
         if (exists) {
             uint256 oldPercentage = shareholders[index].percentage;
+            require(totalAllocatedPercentage - oldPercentage + _percentage <= 100, "Exceeds 100%");
             totalAllocatedPercentage = totalAllocatedPercentage - oldPercentage + _percentage;
             shareholders[index].percentage = _percentage;
             emit ShareholderUpdated(_shareholder, oldPercentage, _percentage);
         } else {
+            require(totalAllocatedPercentage + _percentage <= 100, "Exceeds 100%");
             Shareholder memory newShareholder = Shareholder({
                 addr: _shareholder,
                 percentage: _percentage,
@@ -83,9 +93,10 @@ contract DistributeFunding {
         }
     }
     
-    function receiveTokens() public {
-        require(!fundsReceived, "Already received");
+    function receiveTokens() public beforeFundsReceived {
         require(shareholders.length > 0, "No shareholders");
+        require(crowdFundingAddress != address(0), "CrowdFunding not set");
+        require(msg.sender == crowdFundingAddress, "Only CrowdFunding contract");
         
         IERC20 token = IERC20(tokenAddress);
         uint256 balance = token.balanceOf(address(this));
@@ -93,7 +104,7 @@ contract DistributeFunding {
         
         totalReceived = balance;
         fundsReceived = true;
-        emit FundsReceived(balance);
+        emit FundsReceived(balance, msg.sender);
     }
     
     function withdrawShare() public {
@@ -147,5 +158,11 @@ contract DistributeFunding {
     
     function getTotalAllocated() public view returns (uint256) {
         return totalAllocatedPercentage;
+    }
+    
+    function getShareholderAtIndex(uint256 _index) public view returns (address addr, uint256 percentage, bool hasWithdrawn) {
+        require(_index < shareholders.length, "Index out of bounds");
+        Shareholder memory sh = shareholders[_index];
+        return (sh.addr, sh.percentage, sh.hasWithdrawn);
     }
 }

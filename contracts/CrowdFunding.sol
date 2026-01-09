@@ -11,6 +11,10 @@ interface ISponsorFunding {
     function provideSponsor(address crowdFundingAddress) external;
 }
 
+interface IDistributeFunding {
+    function receiveTokens() external;
+}
+
 contract CrowdFunding {
     address public owner;
     address public tokenAddress;
@@ -29,6 +33,7 @@ contract CrowdFunding {
     event GoalReached(uint256 totalAmount);
     event StateChanged(State newState);
     event SponsorshipReceived(uint256 amount);
+    event FundsTransferred(address indexed to, uint256 amount);
     
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner");
@@ -52,11 +57,13 @@ contract CrowdFunding {
     
     function setSponsorAddress(address _sponsorAddress) public onlyOwner {
         require(_sponsorAddress != address(0), "Invalid address");
+        require(currentState == State.Nefinantat, "Cannot change after started");
         sponsorAddress = _sponsorAddress;
     }
     
     function setDistributeAddress(address _distributeAddress) public onlyOwner {
         require(_distributeAddress != address(0), "Invalid address");
+        require(currentState != State.Finantat, "Cannot change after finalized");
         distributeAddress = _distributeAddress;
     }
     
@@ -98,7 +105,6 @@ contract CrowdFunding {
         uint256 balanceAfter = IERC20(tokenAddress).balanceOf(address(this));
         
         uint256 sponsorshipAmount = balanceAfter - balanceBefore;
-        currentAmount = balanceAfter;
         currentState = State.Finantat;
         
         emit SponsorshipReceived(sponsorshipAmount);
@@ -113,6 +119,9 @@ contract CrowdFunding {
         
         IERC20 token = IERC20(tokenAddress);
         require(token.transfer(distributeAddress, balance), "Transfer failed");
+        emit FundsTransferred(distributeAddress, balance);
+        
+        IDistributeFunding(distributeAddress).receiveTokens();
     }
     
     function getState() public view returns (string memory) {

@@ -7,15 +7,9 @@
 		"abi": [
 			{
 				"inputs": [],
-				"name": "buyTokens",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "payable",
+				"name": "receiveTokens",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -32,7 +26,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SponsorFunding.sol": "ICrowdFundingToken"
+			"contracts/CrowdFunding.sol": "IDistributeFunding"
 		},
 		"evmVersion": "osaka",
 		"libraries": {},
@@ -46,12 +40,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/SponsorFunding.sol": {
-			"keccak256": "0xf63d361f455d56dc9ed11a9fdd15899461efd71aa32d90ba8904e0cb685b8e98",
+		"contracts/CrowdFunding.sol": {
+			"keccak256": "0xf74f76394d0c71cf3ab24f3192436889216e51a6af3cc4225675969dd2683557",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9bd28808754d7c4d6e1f4497322e3bfc81ae63bdec15c7d05fa27833005b8901",
-				"dweb:/ipfs/QmTJ9CMxBSA2JW6cjm9QQeKjE7Vre84Lw2DRdiLu7sVTKa"
+				"bzz-raw://3317b8a72278ebd33b93bed3551444086191f734b918961965991f5cad2d73f9",
+				"dweb:/ipfs/QmSxZxVtoEGkKwpTsuW5qRLc6z68p7kzqiPWezgm89sT6P"
 			]
 		}
 	},

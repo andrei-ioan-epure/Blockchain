@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.31+commit.fd3a2265"
 	},
 	"language": "Solidity",
 	"output": {
@@ -93,7 +93,7 @@
 		"compilationTarget": {
 			"contracts/CrowdFunding.sol": "IERC20"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "osaka",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -106,11 +106,11 @@
 	},
 	"sources": {
 		"contracts/CrowdFunding.sol": {
-			"keccak256": "0x447107a8b23e92001485dfc2b9dc4cfa62fd85506dfb71f7986a8c413c4c65c3",
+			"keccak256": "0xf74f76394d0c71cf3ab24f3192436889216e51a6af3cc4225675969dd2683557",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e42857076576f9c3367426880197636e7a1ed9ae21a2632a6a63e8763037a6fb",
-				"dweb:/ipfs/QmcYC5D5jnd1D94jiuVPdL7Ax1RfBuvxeLQPMgY3pKzWxj"
+				"bzz-raw://3317b8a72278ebd33b93bed3551444086191f734b918961965991f5cad2d73f9",
+				"dweb:/ipfs/QmSxZxVtoEGkKwpTsuW5qRLc6z68p7kzqiPWezgm89sT6P"
 			]
 		}
 	},

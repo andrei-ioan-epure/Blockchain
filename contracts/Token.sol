@@ -14,6 +14,7 @@ contract CrowdFundingToken {
     
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+    event TokenPriceUpdated(uint256 newPrice);
     
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner");
@@ -21,6 +22,8 @@ contract CrowdFundingToken {
     }
     
     constructor(uint256 _initialSupply, uint256 _tokenPrice) {
+        require(_initialSupply > 0, "Invalid supply");
+        require(_tokenPrice > 0, "Invalid price");
         owner = msg.sender;
         totalSupply = _initialSupply * 10**uint256(decimals);
         balances[address(this)] = totalSupply;
@@ -33,6 +36,7 @@ contract CrowdFundingToken {
     }
     
     function transfer(address _to, uint256 _value) public returns (bool) {
+        require(_to != address(0), "Invalid address");
         require(balances[msg.sender] >= _value, "Insufficient balance");
         balances[msg.sender] -= _value;
         balances[_to] += _value;
@@ -41,6 +45,7 @@ contract CrowdFundingToken {
     }
     
     function approve(address _spender, uint256 _value) public returns (bool) {
+        require(_spender != address(0), "Invalid address");
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;
@@ -51,6 +56,7 @@ contract CrowdFundingToken {
     }
     
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool) {
+        require(_to != address(0), "Invalid address");
         require(balances[_from] >= _value, "Insufficient balance");
         require(allowed[_from][msg.sender] >= _value, "Allowance exceeded");
         balances[_from] -= _value;
@@ -64,6 +70,7 @@ contract CrowdFundingToken {
         require(msg.value > 0, "Send ETH to buy");
         require(tokenPrice > 0, "Price not set");
         uint256 tokenAmount = (msg.value * 10**uint256(decimals)) / tokenPrice;
+        require(tokenAmount > 0, "Amount too small");
         require(balances[address(this)] >= tokenAmount, "Not enough tokens");
         balances[address(this)] -= tokenAmount;
         balances[msg.sender] += tokenAmount;
@@ -78,10 +85,13 @@ contract CrowdFundingToken {
     function setTokenPrice(uint256 _newPrice) public onlyOwner {
         require(_newPrice > 0, "Invalid price");
         tokenPrice = _newPrice;
+        emit TokenPriceUpdated(_newPrice);
     }
     
     function withdrawETH() public onlyOwner {
-        (bool success, ) = payable(owner).call{value: address(this).balance}("");
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No ETH");
+        (bool success, ) = payable(owner).call{value: balance}("");
         require(success, "ETH transfer failed");
     }
 }

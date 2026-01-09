@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.31+commit.fd3a2265"
 	},
 	"language": "Solidity",
 	"output": {
@@ -44,6 +44,19 @@
 					}
 				],
 				"name": "Approval",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "newPrice",
+						"type": "uint256"
+					}
+				],
+				"name": "TokenPriceUpdated",
 				"type": "event"
 			},
 			{
@@ -365,7 +378,7 @@
 		"compilationTarget": {
 			"contracts/Token.sol": "CrowdFundingToken"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "osaka",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -378,11 +391,11 @@
 	},
 	"sources": {
 		"contracts/Token.sol": {
-			"keccak256": "0x099fa06b13ba1f2c3f648a666f9c77b888d963133f21fec616f8cd8f9dd5e507",
+			"keccak256": "0xbf139f4eeda57d729452c8e782ceec2d3ca83061225ed8f2e417c923ff42ee7e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4ef18d189e22ffad5101bcfac420b6a2813e82ec256d17ce139cecff2fa77f0b",
-				"dweb:/ipfs/QmY3P7q8zz4d4h3D2tRxNqshTGsT2fZ9iYFtBCbJiByUQS"
+				"bzz-raw://2d92920f9434cce57173df359e6d610417fe46e2c586fde860e69fa11fcd7704",
+				"dweb:/ipfs/QmYcFjYWNxumWSCq6MVCwTsQx2HQuxJNBewgAfpztznGCC"
 			]
 		}
 	},
